@@ -11,6 +11,12 @@ vim.opt.expandtab = true
 
 vim.opt.scrolloff = 999 -- keep cursor line centered vertically
 
+vim.opt.guicursor = "a:block-blinkon0" -- solid block cursor in all modes, no blinking
+
+vim.opt.clipboard = "unnamedplus" -- yank/delete/paste use the system clipboard
+
+vim.opt.cmdheight = 0 -- hide the command-line area when not in use
+
 vim.o.guifont = "JetBrains Mono:h14" -- only used by GUI frontends (Neovide, nvim-qt); terminal nvim inherits the terminal's font
 
 require("mappings")

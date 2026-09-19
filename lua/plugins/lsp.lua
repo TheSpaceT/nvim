@@ -45,8 +45,20 @@ return {
           map("n", "<leader>e", vim.diagnostic.open_float, "Show line diagnostics")
           map("n", "<leader>xq", vim.diagnostic.setqflist, "Diagnostics to quickfix")
 
-          -- LSP-driven autocomplete stays off: no vim.lsp.completion.enable() call here,
-          -- so no popup fires as you type. Manual completion still works via <C-x><C-o>.
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          if client and client:supports_method("textDocument/completion") then
+            vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
+            map("i", "<C-space>", vim.lsp.completion.get, "Trigger completion")
+          end
+
+          if client and client:supports_method("textDocument/formatting") then
+            vim.api.nvim_create_autocmd("BufWritePre", {
+              buffer = bufnr,
+              callback = function()
+                vim.lsp.buf.format({ bufnr = bufnr, id = client.id, timeout_ms = 2000 })
+              end,
+            })
+          end
         end,
       })
     end,

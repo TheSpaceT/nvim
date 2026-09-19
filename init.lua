@@ -17,6 +17,8 @@ vim.opt.clipboard = "unnamedplus" -- yank/delete/paste use the system clipboard
 
 vim.opt.cmdheight = 0 -- hide the command-line area when not in use
 
+vim.opt.completeopt = "menuone,noselect,popup" -- LSP autocomplete popup: no forced pick, float docs
+
 vim.o.guifont = "JetBrains Mono:h14" -- only used by GUI frontends (Neovide, nvim-qt); terminal nvim inherits the terminal's font
 
 require("mappings")
